@@ -679,8 +679,8 @@ const chatData={
   ["嗯","me"],
   ["10月20日","date"],
   ["老婆你在忙吗","them","19:17"],
-  ["怎么没回我","them","20:21"],
-  ["加班","me","21:49"],
+  ["怎么没回我","them","20:11"],
+  ["加班","me","21:13"],
   ["你是看到热搜了才这么冷淡的吧","them"],
   ["你自己心里清楚","me"],
   ["那是粉丝乱嗑的，我们就是普通朋友聚会","them"],
@@ -1000,7 +1000,7 @@ const CALL_ASK_REPLY=[
 const CALL_BUSY=[
  "老婆，我现在有点忙",
  "等会儿联系你！"
- 
+
 ];
 const CALL_DECLINED=[
  "老婆，你是不是还在生我的气……",
@@ -1070,6 +1070,7 @@ const speech=[
  ["某人","哎。我爱你。"],
  ["我","……挂了。"]
 ];
+const SPEECH_OUT=[["某人","老婆这么迫不及待呀"],...speech.slice(1)];
 const OTHER_CALLS={
  "妈妈": [
   ["妈妈","囡囡，怎么突然打电话，出什么事了？"],
@@ -2020,7 +2021,7 @@ function startRingback(){const r=()=>{tone(440,0,1,.05);tone(480,0,1,.05)};r();c
 function stopRingback(){clearInterval(rbIv);rbIv=null}
 function dial(name){if(callState)return;callName=name;callDir='out';callPrev=view;callState='dialing';if(nowSong>=0||PLAYER.dataset.voice)PLAYER.pause();renderCall();startRingback();vib(10);
  const ready=askedCall;const pick=(sc,ms,end)=>{callTimers.push(setTimeout(()=>{if(callState!=='dialing')return;curScript=sc;isEnding=!!end;answerCall()},ms))};
- if(name==='某人'&&!phoneDone&&ready)pick(speech,1500,true);
+ if(name==='某人'&&!phoneDone&&ready)pick(SPEECH_OUT,1500,true);
  else if(name==='某人'&&phoneDone)pick(SOHEE_AFTER,1500);
  else if(name==='某人'){callTimers.push(setTimeout(()=>{if(callState!=='dialing')return;rejectOut(t('callEnded'));if(!busySent){busySent=true;CALL_BUSY.forEach((m,k)=>setTimeout(()=>incomingMsg(m),2500+k*2600))}},3500))}
  else if(OTHER_CALLS[name])pick(OTHER_CALLS[name],/^0/.test(name)?1200:1500+Math.random()*400);
