@@ -1403,7 +1403,7 @@ const fmtLockDate=()=>_f({month:'long',day:'numeric',weekday:'long'}).format(_d(
 const fmtHour=h=>_f({hour:'numeric'}).format(_d(2026,10,26,h,0));
 function alarmParts(h,mi){const ps=_f({hour:'numeric',minute:'2-digit'}).formatToParts(_d(2026,10,26,h,mi));const di=ps.findIndex(p=>p.type==='dayPeriod');const dp=di>=0?ps[di].value:'';const tm=ps.filter(p=>p.type!=='dayPeriod').map(p=>p.value).join('').trim();const hi=ps.findIndex(p=>p.type==='hour');return{dp,tm,before:di>=0&&di<hi}}
 function parseLabel(l){let m=l.match(/^(\d{4})年(\d+)月(\d+)日$/);if(m)return{y:+m[1],m:+m[2],d:+m[3]};m=l.match(/^(\d{4})年(\d+)月$/);if(m)return{y:+m[1],m:+m[2]};m=l.match(/^(\d+)月(\d+)日$/);if(m)return{y:2026,m:+m[1],d:+m[2]};return null}
-function fmtLabel(l,full){if(l==='今天')return full?fmtFull(2026,10,26):t('today');if(l==='昨天')return t('yesterday');const p=parseLabel(l);if(!p)return l;if(!p.d)return fmtYM(p.y,p.m);if(full)return fmtFull(p.y,p.m,p.d);return p.y===2026?fmtMD(p.m,p.d):fmtYMD(p.y,p.m,p.d)}
+function fmtLabel(l,full){if(l==='今天')return full?fmtFull(2026,10,26):t('today');if(l==='昨天')return t('yesterday');const p=parseLabel(l);if(!p)return l;if(!p.d)return fmtYM(p.y,p.m);if(p.y===2026)return fmtMD(p.m,p.d);return full?fmtFull(p.y,p.m,p.d):fmtYMD(p.y,p.m,p.d)}
 const KO_WD={'周日':0,'周一':1,'周二':2,'周三':3,'周四':4,'周五':5,'周六':6};
 document.documentElement.lang=LANG;
 </script>
