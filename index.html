@@ -1806,7 +1806,7 @@ function sendLine(){if(!pendingText)return;const st=liveReplies[replyStage];toda
 function showTyping(){if(!(view==='chat'&&chatId==='某人'))return;const b=$('#msgs');if(!b||$('#typ'))return;b.insertAdjacentHTML('beforeend',`<div class="ln th first" id="typ"><div class="sav">${avatarFor('某人')}</div><div class="col"><div class="who">袁一琦</div><div class="wrap"><div class="bb typing pop"><i></i><i></i><i></i></div></div></div></div>`);scrollChat(true)}
 function hideTyping(){const t=$('#typ');if(t)t.remove()}
 function deliverSohee(text){todayChat.push([text,'them',nowAmpm()]);
- if(view==='chat'&&chatId==='某人'){refreshChat(true);tone(1318,0,.12,.05)}
+ if(view==='chat'&&chatId==='某人'){refreshChat(true);renderChips();tone(1318,0,.12,.05)}
  else{soheeUnread++;notify(text);if(view==='kakao')show('kakao');if(view==='home')renderHome()}saveState()}
 function incomingMsg(text){if(view==='chat'&&chatId==='某人'){showTyping();setTimeout(()=>{hideTyping();deliverSohee(text)},1500)}else deliverSohee(text)}
 
